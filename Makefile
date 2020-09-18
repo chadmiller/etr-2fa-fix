@@ -1,7 +1,7 @@
 all: chrome.zip firefox.zip
 
-%.zip: %/manifest.json icons/ icons/six-digits.png
-	d=$$(mktemp -d); cp -r $^ $$d && cd $$d && zip ${PWD}/$@ -r .
+%.zip: %-manifest.json fix-form.js icons/
+	d=$$(mktemp -d); cp -r $^ $$d && cd $$d && mv $*-manifest.json manifest.json && zip -q ${PWD}/$@ -r . -x \*.xcf && rm -r $$d
 	unzip -l $@
 
 clean:

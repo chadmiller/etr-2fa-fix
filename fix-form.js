@@ -9,7 +9,7 @@ field. Separate fields are nice to use.
 On submit, concatenate together pw+code as E*trade expects it to be.
 */
 
-console.debug("e* 202009-01")
+console.info("e* 202009-02")
 
 lf = document.getElementById('log-on-form');
 
@@ -19,39 +19,38 @@ if (twofa_label == null) {
 
 	/* The anchor of all the changes. */
 	password_input = lf.querySelector("input[name=PASSWORD]");
+	console.debug(password_input);
 
 	/* This bit will get the password input, seek upward to get the parent to
 	reparent the new 2FA input into. */
 	/* There are two styles of log-in. labeled-input and placeholder'd input. */
 	if (password_input.getAttribute("placeholder") != null) {
-		console.debug("passwordinput has a placeholder");
+		console.info("passwordinput has a placeholder");
 		// This is a form with placeholder labels. Clone shallow.
 		password_input.setAttribute("placeholder", password_input.getAttribute("placeholder") + " (only, without 2FA)");
 		password_block = password_input.parentElement;
+		console.debug(password_block);
 
 		twofa_block = password_block.cloneNode(true);
 
 		twofa_input = twofa_block.querySelector("input[name=PASSWORD]");
 		twofa_input.setAttribute("placeholder", "2FA key (optional)");
 	} else {
-		console.debug("passwordinput has no placeholder");
+		console.info("passwordinput has no placeholder");
 		// This is a form with labels and containing div. Clone deeper.
 		password_block = password_input.parentElement.parentElement;
-console.debug(password_input);
+		console.debug(password_block);
 
 		password_label = password_block.querySelector("label");
-console.debug(password_label);
+		console.debug(password_label);
 		password_label.textContent += " (only, without 2FA)";
 
 		twofa_block = password_block.cloneNode(true);
-console.debug(password_label);
 
 		twofa_label = twofa_block.querySelector("label");
-console.debug(twofa_label);
 		twofa_label.setAttribute("for", "");
-console.debug(twofa_label);
 		twofa_label.textContent = "2FA key (optional)";
-console.debug(password_label);
+		console.debug(password_label);
 
 		twofa_input = twofa_block.querySelector("input");
 		twofa_input.setAttribute("placeholder", "123456");
@@ -61,22 +60,25 @@ console.debug(password_label);
 
 	twofa_input.setAttribute("id", "twofakey");
 	twofa_input.setAttribute("name", "");
+	twofa_input.setAttribute("value", "");
 	twofa_input.setAttribute("type", "text");
 	twofa_input.setAttribute("pattern", "(|[0-9]{6})"); // 6 numbers or nothin'
 	twofa_input.setAttribute("title", "6-digit number from two-factor-auth app; if you don't have 2FA enabled, leave this blank");
 
 	password_block.parentElement.insertBefore(twofa_block, password_block.nextSibling)
-
-	current_submit_action = twofa_input.form.onsubmit
+	console.info("Injected 2fa input");
 
 	twofa_input.form.onsubmit = function(password_input, twofa_input, current_submit_action) {
 		return function(ev) {
 			password_input.value += twofa_input.value;
 			twofa_input.value = '';  // erase
 			if (current_submit_action) {
+				console.info("submitting after running inherited action,");
+				console.info(ev);
 				return current_submit_action(ev);
 			}
+			console.info("submitting");
 			return true;
 		}
-	}(password_input, twofa_input, current_submit_action);
+	}(password_input, twofa_input, twofa_input.form.onsubmit);
 }

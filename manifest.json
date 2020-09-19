@@ -5,7 +5,9 @@
 
   "description": "Separates 2FA from password in E*trade log-in form, saving confusion and password-manager damage",
 
-  "permissions": [ "activeTab" ],
+  "icons": {
+    "48": "icons/six-digits.png"
+  },
 
   "content_scripts": [
     {
@@ -15,7 +17,7 @@
         "*://us.etrade.com/home/welcome-back",
         "*://us.etrade.com/"
       ],
-      "run_at": "document_start",
+      "run_at": "document_idle",
       "js": ["fix-form.js"]
     }
   ]

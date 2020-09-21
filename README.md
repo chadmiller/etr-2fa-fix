@@ -57,7 +57,7 @@ Grr. It's necessary, or else you're going to get locked out as soon as you turn 
 ## Make your web browser fix E\*trade's web site
 
 Browser extensions for
-[Firefox](https://addons.mozilla.org/en-US/firefox/addon/etrade-2fa-sensible-log-in/) and Chrome fix the E\*trade log-in form to split the 2FA into a visible field that doesn't interfere with your password manager. It's super simple and adds the 2FA code to the password code as part of submitting the form. (Some password managers might still ask to save. Bug reports are welcome.)
+[for Firefox](https://addons.mozilla.org/en-US/firefox/addon/etrade-2fa-sensible-log-in/) and [for Chrome fix the E\*trade log-in form](https://chrome.google.com/webstore/detail/etrade-2fa-sensible-log-i/oadagimbkdacfiidcbhlmbcnepecfhim) to split the 2FA into a visible field that doesn't interfere with your password manager. It's super simple and adds the 2FA code to the password code as part of submitting the form. (Some password managers might still ask to save. Bug reports are welcome.)
 
 ## Use Authy or Google Authenticator with E\*trade
 

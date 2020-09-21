@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Etrade 2FA sensible log-in",
-  "version": "1.0",
+  "version": "1.1",
 
   "description": "Separates 2FA from password in E*trade log-in form, saving confusion and password-manager damage",
 
